@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reddit Sentiment Analysis</title>
+    <style>
+        body { font-family: sans-serif; }
+        .post { border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; }
+        .sentiment-toxic { color: red; }
+        .sentiment-non-toxic { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Reddit Sentiment Analysis</h1>
+    {% if posts %}
+        {% for post in posts %}
+            <div class="post">
+                <p><strong>Title:</strong> {{ post.title }}</p>
+                <p><strong>Text:</strong> {{ post.text }}</p>
+                <p><strong>Sentiment:</strong>
+                    <span class="sentiment-{{ post.sentiment|lower|replace(' ', '-') }}">
+                        {{ post.sentiment }} (Probability: {{ "%.4f" % post.probability }})
+                    </span>
+                </p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No Reddit posts yet. Waiting for data...</p>
+    {% endif %}
+</body>
+</html>
